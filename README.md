@@ -7,7 +7,7 @@ We have a `main.core` namespace which provides an `evaluate` function, and this 
 First, start up a browser REPL via
 
 ```
-$ clj -m cljs.main -co '{:cache-analysis-format :edn}' -d out -r
+$ clj -m cljs.main
 ```
 
 At the REPL, load our main namespace by evaluating
@@ -58,15 +58,13 @@ This is because the compiler analysis metadata is not in the `main.core/state` a
 
 We can fix this by making use of `cljs.js/load-analysis-cache!` to load the analysis cache associated with the `library.core` namespace.
 
-This example code embeds this analysis cache directly in the value of `main.core/library-analysis-cache` by employing a macro that slurps the analysis cache written by the JVM-based compiler. You can transport this analysis cache to the browser by any mechanism you desire; this just illustrates one way of simply bundling it directly in the shipping code.
+This example code embeds this analysis cache directly in the value of `main.core/library-analysis-cache` by employing a macro that snatches the analysis cache from the JVM-based compiler. You can transport this analysis cache to the browser by any mechanism you desire; this just illustrates one way of simply bundling it directly in the shipping code.
 
 Go ahead and evaluate the following, just to see what the analysis cache for that namespace looks like:
 
 ```
 main.core/library-analysis-cache
 ```
-
-> Note: We started the REPL specifying the compiler option `:cache-analysis-format` as `:edn` so we could easily read it in. By default it will be written out as Transit, and it can also be read in that format; this would involve using the Transit library to read it.
 
 If you call
 
