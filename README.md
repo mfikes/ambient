@@ -101,3 +101,12 @@ WARNING: Wrong number of args (2) passed to library.core/my-inc at line 1
 ```
 
 to be printed.
+
+The above illustrates what happens when you don't have the analyzer cache present for a namespace and how to fix it using `cljs.js/load-analysis-cache!`. If you know that you will always want to load the cache upon startup, you can simply things, making use of an optional second argument to `cljs.js/empty-state` to load this cache at initialization time:
+
+```clojure
+(def state (cljs.js/empty-state
+             (fn [state]
+               (assoc-in state [:cljs.analyzer/namespaces 'library.core]
+                 (analyzer-state 'library.core)))))
+```    
