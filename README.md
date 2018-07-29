@@ -28,13 +28,11 @@ This should print
 {:ns cljs.user, :value 5}
 ```
 
-Now, since `main.core` required `library.core`, we can call functions in that namespace. Evaluating this at the REPL
+Now, since `main.core` required `library.core`, we can call functions in that namespace. Evaluating this at the REPL will yield `11`:
 
 ```clojure
 (library.core/my-inc 10)
 ```
-
-will yield `11`.
 
 Now, let's try to use this "ambient" function from self-hosted ClojureScript:
 
@@ -80,13 +78,11 @@ Now if you evaluate
 (main.core/evaluate "(library.core/my-inc 10)" prn)
 ```
 
-you won't see any warnings and
+you won't see any warnings and this will be printed:
 
 ```clojure
 {:ns cljs.user, :value 11}
 ```
-
-will be printed.
 
 Furthermore, since the self-hosted compiler now has the analysis metadata for `libraray.core`, it can properly warn on arity errors, for example
 
@@ -94,13 +90,11 @@ Furthermore, since the self-hosted compiler now has the analysis metadata for `l
 (main.core/evaluate "(library.core/my-inc 10 12)" prn)
 ```
 
-will cause 
+will cause this to be printed:
 
 ```
 WARNING: Wrong number of args (2) passed to library.core/my-inc at line 1
 ```
-
-to be printed.
 
 The above illustrates what happens when you don't have the analyzer cache present for a namespace and how to fix it using `cljs.js/load-analysis-cache!`. If you know that you will always want to load the cache upon startup, you can simply things, making use of an optional second argument to `cljs.js/empty-state` to load this cache at initialization time:
 
