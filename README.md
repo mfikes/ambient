@@ -2,7 +2,7 @@
 
 Example of using ambient functions from self-hosted ClojureScript.
 
-We have a `main.core` namespace which provides an `evaluate` function, and this example will show how to call functions in an ambient (pre-loaded) `library.core` namespace.
+We have a `main.core` namespace which provides an `evaluate` function, and this example will show how to call functions in an ambient / pre-compiled `library.core` namespace.
 
 First, start up a browser REPL via
 
